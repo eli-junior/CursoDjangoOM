@@ -19,7 +19,10 @@ omit = ["proj3ct/**/migrations/*.py", "proj3ct/settings.py", "proj3ct/asgi.py", 
 [tool.taskipy.tasks]
 lint = 'ruff . && blue --check . --diff'
 format = 'isort . && ruff . && blue .'
-run = 'streamlit run st_fifa/1_Home.py'
+run = 'python manage.py runserver'
+migrate = 'python manage.py migrate'
+makemigrations = 'python manage.py makemigrations'
+shell = 'python manage.py shellplus'
 pre_test = 'task lint'
 test = 'pytest'
 post_test = 'coverage html'
