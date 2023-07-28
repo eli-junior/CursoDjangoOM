@@ -45,3 +45,13 @@ repos:
         "--max-line-length=140"
       ]
       exclude: 'docs/'
+
+- repo: local
+  hooks:
+  - id: pip-compile
+    name: compile requirements.txt
+    entry: pip-compile
+    language: system
+    always_run: false
+    files: requirements.in
+    stages: [push]
