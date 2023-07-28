@@ -1,0 +1,8 @@
+pytest
+pytest-cov
+taskipy
+blue
+isort
+ruff
+pytest-sugar
+pre-commit
