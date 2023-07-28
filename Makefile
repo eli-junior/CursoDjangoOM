@@ -38,13 +38,13 @@ test: ## Run tests and save coverage
 	task test
 
 run: ## Run application by django server
-	@task run
+	task run
 
 migrate: ## Run migrations
-	@task migrate
+	task migrate
 
 makemigrations: ## Make migrations
-	@task makemigrations
+	task makemigrations
 
 shell: ## Run django shell
-	@task shell
+	task shell
