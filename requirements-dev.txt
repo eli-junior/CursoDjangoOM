@@ -1,4 +1,5 @@
 blue
+ipython
 isort
 pip-tools
 pre-commit
