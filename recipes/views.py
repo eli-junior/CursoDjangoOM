@@ -8,7 +8,7 @@ def home(request):
         request,
         "recipes/pages/home.html",
         context={
-            "recipes": make_recipe(12),
+            "recipes": make_recipe(10),
         },
     )
 
@@ -19,5 +19,6 @@ def recipe(request, id):
         "recipes/pages/recipe-view.html",
         context={
             "recipe": make_recipe(),
+            "is_detail_page": True,
         },
     )

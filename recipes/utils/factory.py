@@ -17,7 +17,8 @@ def make_recipe(qtty=1) -> list[dict] | dict:
     """
     recipes = []
     for _ in range(qtty):
-        r = {"title": fake.sentence(nb_words=6)}
+        r = {"id": fake.random_number(digits=3, fix_len=True)}
+        r["title"] = fake.sentence(nb_words=6)
         r["description"] = fake.sentence(nb_words=12)
         r["preparation_time"] = fake.random_number(digits=2, fix_len=True)
         r["preparation_time_unit"] = "Minuto" if r["preparation_time"] == 1 else "Minutos"
