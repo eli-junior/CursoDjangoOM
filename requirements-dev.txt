@@ -1,4 +1,5 @@
 blue
+faker
 ipython
 isort
 pip-tools
