@@ -9,14 +9,15 @@ def rand_ratio():
 
 
 fake = Faker("pt_BR")
-# print(signature(fake.random_number))
 
 
-def make_recipe(qtty=1):
+def make_recipe(qtty=1) -> list[dict] | dict:
+    """
+    Make a fake recipe or a list of recipes
+    """
     recipes = []
     for _ in range(qtty):
-        r = {}
-        r["title"] = fake.sentence(nb_words=6)
+        r = {"title": fake.sentence(nb_words=6)}
         r["description"] = fake.sentence(nb_words=12)
         r["preparation_time"] = fake.random_number(digits=2, fix_len=True)
         r["preparation_time_unit"] = "Minuto" if r["preparation_time"] == 1 else "Minutos"
