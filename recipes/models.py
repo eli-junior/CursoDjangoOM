@@ -17,7 +17,7 @@ class Recipe(models.Model):
     is_published = models.BooleanField(default=False)
     cover = models.ImageField(upload_to="recipes/covers/%Y/%m/%d/", blank=True)
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True, blank=True)
-    author = models.ForeignKey("Profile", on_delete=models.SET_NULL, null=True, blank=True)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.title
@@ -28,11 +28,3 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True, null=True)
-
-    def __str__(self) -> str:
-        return self.user.get_full_name()
