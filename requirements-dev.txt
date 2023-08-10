@@ -6,6 +6,7 @@ pip-tools
 pre-commit
 pytest
 pytest-cov
+pytest-django
 pytest-sugar
 ruff
 taskipy
