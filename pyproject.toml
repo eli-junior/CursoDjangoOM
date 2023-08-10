@@ -11,7 +11,7 @@ DJANGO_SETTINGS_MODULE = "proj3ct.settings"
 python_files = "test_*.py"
 minversion = "7.4.0"
 pythonpath = "."
-addopts = "-ra -q -s -x -vv --doctest-modules --disable-pytest-warnings --cov=proj3ct --cov-report=term-missing --cov-report=html"
+addopts = "-raP -q -s -x -vv --doctest-modules --disable-pytest-warnings --cov=proj3ct --cov-report=term-missing --cov-report=html"
 
 [tool.coverage.report]
 skip_empty = true
