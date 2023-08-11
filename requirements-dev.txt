@@ -2,8 +2,6 @@ blue
 faker
 ipython
 isort
-pip-tools
-pre-commit
 pytest
 pytest-cov
 pytest-django

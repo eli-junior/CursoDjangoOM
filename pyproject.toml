@@ -19,12 +19,11 @@ source = "proj3ct/**/*.py"
 omit = ["proj3ct/**/migrations/*.py", "proj3ct/settings.py", "proj3ct/asgi.py", "proj3ct/wsgi.py", "proj3ct/urls.py"]
 
 [tool.taskipy.tasks]
-lint = 'ruff . && blue --check . --diff'
-format = 'isort . && ruff . && blue .'
-run = 'python manage.py runserver'
+lint = 'isort . --check . && black . --check --diff'
+format = 'isort . &&  && black .'
+run = 'python manage.py runserver --insecure'
 migrate = 'python manage.py migrate'
-makemigrations = 'python manage.py makemigrations'
-shell = 'python manage.py shell_plus'
+migrations = 'python manage.py makemigrations'
+shell = 'python manage.py shell_plus --ipython -- --profile=recipes'
 pre_test = 'task lint'
 test = 'pytest'
-post_test = 'coverage html'

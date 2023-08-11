@@ -15,10 +15,11 @@ help:
 .PHONY: clean install
 
 install: ## Install dependencies to run project in development environment
-	pip install -U pip setuptools wheel pip-tools
+	pip install -U pip setuptools wheel pip-tools pre-commit
 	pip install -r requirements-dev.txt
 	pip install -r requirements.in
 	pip-compile --output-file=requirements.txt requirements.in
+	pre-commit install
 
 clean: ## Remove cache files from project
 	@echo "cleaning cache files"
