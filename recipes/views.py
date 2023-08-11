@@ -1,9 +1,10 @@
+from django.http import HttpRequest
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 from .models import Recipe
 
 
-def home(request):
+def home(request: HttpRequest):
     recipes = Recipe.objects.filter(is_published=True).order_by("-id")
     return render(
         request,
@@ -14,7 +15,7 @@ def home(request):
     )
 
 
-def category(request, category_id):
+def category(request: HttpRequest, category_id: int):
     recipes = get_list_or_404(Recipe.objects.filter(category__id=category_id, is_published=True).order_by("-id"))
     category = recipes[0].category.name if recipes else None
 
@@ -28,7 +29,7 @@ def category(request, category_id):
     )
 
 
-def recipe(request, recipe_id):
+def recipe(request: HttpRequest, recipe_id: int):
     recipe = get_object_or_404(Recipe, pk=recipe_id, is_published=True)
 
     return render(
