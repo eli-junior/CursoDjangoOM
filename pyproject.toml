@@ -11,7 +11,7 @@ DJANGO_SETTINGS_MODULE = "proj3ct.settings"
 python_files = "test_*.py"
 minversion = "7.4.0"
 pythonpath = "."
-addopts = "-raP -q -s -x -vv --doctest-modules --disable-pytest-warnings --cov=proj3ct --cov-report=term-missing --cov-report=html"
+addopts = "-raP -q -s -x -vv --doctest-modules --disable-pytest-warnings --no-cov-on-fail --cov=proj3ct --cov-report=term-missing --cov-report=html:coverage"
 
 [tool.coverage.report]
 skip_empty = true
@@ -19,7 +19,7 @@ source = "proj3ct/**/*.py"
 omit = ["proj3ct/**/migrations/*.py", "proj3ct/settings.py", "proj3ct/asgi.py", "proj3ct/wsgi.py", "proj3ct/urls.py"]
 
 [tool.taskipy.tasks]
-lint = 'isort . --check . && black . --check --diff'
+lint = 'black . --check --diff'
 format = 'isort . &&  && black .'
 run = 'python manage.py runserver --insecure'
 migrate = 'python manage.py migrate'

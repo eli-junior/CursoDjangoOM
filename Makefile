@@ -28,7 +28,7 @@ clean: ## Remove cache files from project
 	@rm -rf build
 	@rm -rf dist
 	@rm -rf *.egg-info
-	@rm -rf htmlcov coverage-report
+	@rm -rf htmlcov coverage-report coverage .coverage
 	@rm -rf .tox/
 	@rm -rf docs/_build
 	@rm -rf docs/_build
@@ -37,16 +37,16 @@ clean: ## Remove cache files from project
 ## @ Application - See pyproject.toml
 .PHONY: test run
 test: ## Run tests and save coverage
-	task test
+	@pytest
 
 run: ## Run application by django server
-	task run
+	@python manage.py runserver --insecure
 
 migrate: ## Run migrations
-	task migrate
+	@python manage.py migrate
 
 makemigrations: ## Make migrations
-	task makemigrations
+	@python manage.py makemigrations
 
 shell: ## Run django shell
-	task shell
+	@python manage.py shell_plus --ipython -- --profile=recipes
