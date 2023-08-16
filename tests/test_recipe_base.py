@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from recipes.models import Category, Recipe, User
+from proj3ct.recipes.models import Category, Recipe, User
 
 
 class RecipeTestBase(TestCase):

@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError, CommandParser
 from django.db.utils import OperationalError
 
-from recipes.models import Category, Recipe
-from recipes.utils.factory import RECIPES
+from proj3ct.recipes.models import Category, Recipe
+from proj3ct.recipes.utils.factory import RECIPES
 
 
 class Command(BaseCommand):

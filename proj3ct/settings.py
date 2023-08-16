@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_extensions",
     # A gente tem apps também
-    "recipes",
+    "proj3ct.recipes",
 ]
 
 MIDDLEWARE = [

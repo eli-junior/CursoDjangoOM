@@ -11,12 +11,24 @@ DJANGO_SETTINGS_MODULE = "proj3ct.settings"
 python_files = "test_*.py"
 minversion = "7.4.0"
 pythonpath = "."
-addopts = "-raP -q -s -x -vv --doctest-modules --disable-pytest-warnings --no-cov-on-fail --cov=proj3ct --cov-report=term-missing --cov-report=html:coverage"
+addopts = """
+    -ra -q -s -x -vvv \
+    --doctest-modules \
+    --disable-pytest-warnings \
+    --cov=proj3ct \
+    --cov-report=html:coverage
+    """
 
 [tool.coverage.report]
 skip_empty = true
+branch = true
 source = "proj3ct/**/*.py"
-omit = ["proj3ct/**/migrations/*.py", "proj3ct/settings.py", "proj3ct/asgi.py", "proj3ct/wsgi.py", "proj3ct/urls.py"]
+omit = [
+    "proj3ct/**/migrations/*.py",
+    "proj3ct/*.py",
+    "proj3ct/**/populate_recipes.py",
+    "proj3ct/**/factory.py"
+]
 
 [tool.taskipy.tasks]
 lint = 'black . --check --diff'
