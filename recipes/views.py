@@ -29,8 +29,8 @@ def category(request: HttpRequest, category_id: int):
     )
 
 
-def recipe(request: HttpRequest, recipe_id: int):
-    recipe = get_object_or_404(Recipe, pk=recipe_id, is_published=True)
+def recipe(request: HttpRequest, id: int):
+    recipe = get_object_or_404(Recipe, pk=id, is_published=True)
 
     return render(
         request,

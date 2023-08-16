@@ -11,6 +11,25 @@ from recipes.utils.factory import RECIPES
 class Command(BaseCommand):
     help = "Populates the database with recipes"
 
+    users_data = [
+        {
+            "username": "ana",
+            "email": "ana@localhost",
+            "password": "ana123",
+            "first_name": "Ana",
+            "last_name": "Ficticia",
+        },
+        {
+            "username": "joao",
+            "email": "joao@localhost",
+            "password": "jao123",
+            "first_name": "João",
+            "last_name": "Imaginário",
+        },
+    ]
+
+    categories_data = ["Café da manhã", "Almoço", "Jantar", "Sobremesa", "Lanche"]
+
     def recipe_data_exists(self):
         try:
             return Recipe.objects.count() > 0
@@ -18,20 +37,20 @@ class Command(BaseCommand):
             raise CommandError("Verifique se o modelo Recipes foi migrado corretamente e tente novamente!") from e
 
     def get_categories(self):
-        categories = Category.objects.all()
-        if not categories:
-            categories = [
-                Category(name="Café da manhã"),
-                Category(name="Almoço"),
-                Category(name="Jantar"),
-                Category(name="Sobremesa"),
-                Category(name="Lanche"),
-            ]
-            Category.objects.bulk_create(categories)
-            categories = Category.objects.all()
-        return categories
+        if categories := Category.objects.all():
+            return categories
+
+        Category.objects.bulk_create([Category(name=category) for category in self.categories_data])
+
+        return Category.objects.all()
 
     def get_users(self):
+        if users := User.objects.all():
+            if len(users) > 1:
+                return users
+
+        for user in self.users_data:
+            User.objects.create_user(**user)
         return User.objects.all()
 
     def add_arguments(self, parser: CommandParser) -> None:
@@ -56,21 +75,9 @@ class Command(BaseCommand):
         authors = self.get_users()
 
         for r in RECIPES:
-            recipe = Recipe(
-                title=r["title"],
-                description=r["description"],
-                slug=r["slug"],
-                preparation_time=r["preparation_time"],
-                preparation_time_unit=r["preparation_time_unit"],
-                servings=r["servings"],
-                servings_unit=r["servings_unit"],
-                preparation_steps=r["preparation_steps"],
-                preparation_steps_is_html=r["preparation_steps_is_html"],
-                is_published=r["is_published"],
-                cover=r["cover"],
-                category=choices(categories)[0],
-                author=choices(authors)[0],
-            )
+            r["category"] = choices(categories)[0]
+            r["author"] = choices(authors)[0]
+            recipe = Recipe(**r)
             recipe.save()
             self.stdout.write(f"Recipe {recipe.title} created")
         self.stdout.write(self.style.SUCCESS(f"{len(RECIPES)} Recipes created successfully!"))

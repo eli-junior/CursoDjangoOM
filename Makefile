@@ -42,6 +42,16 @@ test: ## Run tests and save coverage
 run: ## Run application by django server
 	@python manage.py runserver --insecure
 
+admin: ## Create admin user
+	@python manage.py createsuperuser --username admin --email admin@localhost
+
+populate: ## Populate database with fake data
+	@rm -f db.sqlite3
+	@make migrate
+	@echo "Digite a senha do usuário admin"
+	@make admin
+	@python manage.py populate_recipes -f
+
 migrate: ## Run migrations
 	@python manage.py migrate
 
