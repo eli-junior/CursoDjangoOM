@@ -1,10 +1,10 @@
 ENV=development
 PROJECT=proj3ct
 
-TEST_FILES=./tests
+TEST_FOLDER=./tests
 
-FLAKE8_FLAGS = --ignore=W503,E501
-ISORT_FLAGS = --profile=black --lines-after-import=2
+FLAKE8_FLAGS = --ignore=
+ISORT_FLAGS = --profile=django --lines-after-import=2
 
 
 .PHONY: all help
@@ -34,8 +34,8 @@ clean: ## Remove cache files from project
 	@rm -rf docs/_build
 	@echo "Done!"
 
-## @ Application - See pyproject.toml
-.PHONY: test run
+
+.PHONY: test run admin populate migrate migrations shell ## @ Application - See pyproject.toml
 test: ## Run tests and save coverage
 	@pytest
 
@@ -46,17 +46,29 @@ admin: ## Create admin user
 	@python manage.py createsuperuser --username admin --email admin@localhost
 
 populate: ## Populate database with fake data
+	@echo "Recriando banco de dados"
 	@rm -f db.sqlite3
 	@make migrate
-	@echo "Digite a senha do usuário admin"
+	@echo "Criando novo usuário admin. Digite a senha abaixo:"
 	@make admin
+	@echo "Populando banco de dados com dados falsos"
 	@python manage.py populate_recipes -f
 
 migrate: ## Run migrations
 	@python manage.py migrate
 
-makemigrations: ## Make migrations
+migrations: ## Run make migrations
 	@python manage.py makemigrations
 
 shell: ## Run django shell
 	@python manage.py shell_plus --ipython -- --profile=recipes
+
+
+.PHONY: lint format ## @ Linters
+lint: ## Run ruff and isort as linters
+	@ruff check $(PROJECT) $(TEST_FOLDER)
+	@isort --check $(ISORT_FLAGS) $(PROJECT) $(TEST_FOLDER)
+
+format:
+	@isort $(ISORT_FLAGS) $(PROJECT) $(TEST_FOLDER)
+	@ruff $(PROJECT) $(TEST_FOLDER)
