@@ -15,18 +15,12 @@ repos:
     - id: mixed-line-ending
     - id: requirements-txt-fixer
     - id: trailing-whitespace
-- repo: https://github.com/psf/black
-  rev: 23.7.0
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.0.284
   hooks:
-  - id: black
-    language_version: python3.11
-    description: "Black: The uncompromising Python code formatter"
-    require_serial: true
-    types: [python]
-    args: [
-      "-l 140",
-      "--verbose"
-    ]
+    - id: ruff
+      args: [--fix, --exit-non-zero-on-fix]
 - repo: https://github.com/timothycrosley/isort
   rev: 5.12.0
   hooks:
@@ -36,16 +30,6 @@ repos:
         "--lines-after-import=2"
       ]
       exclude: 'contrib/'
-- repo: https://github.com/PyCQA/flake8
-  rev: 6.0.0
-  hooks:
-    - id: flake8
-      args: [
-        "--ignore=W503",
-        "--max-line-length=140"
-      ]
-      exclude: 'docs/'
-
 - repo: local
   hooks:
   - id: pip-compile

@@ -1,6 +1,10 @@
 [tool.ruff]
 line-length = 140
-exclude = ['.venv', 'migrations']
+exclude = ['.venv', 'venv', 'migrations']
+target-version = "py311"
+
+[tool.ruff.mccabe]
+max-complexity = 10
 
 [tool.isort]
 profile = "black"
